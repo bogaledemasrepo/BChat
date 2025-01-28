@@ -1,39 +1,43 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import Header from "@/components/Header";
+import { MaterialIcons } from "@expo/vector-icons";
+import { Stack } from "expo-router";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
+const _layout = () => {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Stack>
+      <Stack.Screen
+        name="index"
+        options={{
+          headerLeft: () => (
+            <TouchableOpacity>
+              <MaterialIcons
+                name="menu"
+                style={{
+                  fontWeight: "bold",
+                  margin: 8,
+                }}
+                size={24}
+              />
+            </TouchableOpacity>
+          ),
+          headerStyle: styles.header,
+          title: "Be Chat",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontSize: 18,
+            fontWeight: "bold",
+            color: "#996565",
+          },
+        }}
+      />
+    </Stack>
   );
-}
+};
+export default _layout;
+const styles = StyleSheet.create({
+  header: {
+    height: 60,
+    backgroundColor: "#c7c7c7",
+  },
+});
