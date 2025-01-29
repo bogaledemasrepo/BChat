@@ -1,6 +1,7 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { Link } from "expo-router";
+import { router } from "expo-router";
+import CustomButton from "@/components/CustomButton";
 
 const index = () => {
   return (
@@ -9,6 +10,7 @@ const index = () => {
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
+        padding: 4,
       }}
     >
       <View
@@ -34,27 +36,7 @@ const index = () => {
           Wellcome to BChat App
         </Text>
       </View>
-      <Link href={"/(auth)/signIn"}>
-        <Pressable
-          style={{
-            padding: 8,
-            backgroundColor: "#84ff84d7",
-            borderRadius: 99,
-            borderColor: "#84ff84",
-            borderWidth: 1,
-          }}
-        >
-          <Text
-            style={{
-              fontFamily: "monospace",
-              fontSize: 16,
-              fontWeight: "semibold",
-            }}
-          >
-            Get started
-          </Text>
-        </Pressable>
-      </Link>
+      <CustomButton pressHandler={async () => router.navigate("/auth")} />
     </View>
   );
 };

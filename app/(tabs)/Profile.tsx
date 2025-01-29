@@ -1,14 +1,18 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const Home = () => {
+const Setting = () => {
   return (
-    <View>
-      <Text>Home</Text>
+    <View
+      style={{
+        flex: 1,
+      }}
+    >
+      <Text>Setting</Text>
     </View>
   );
 };
 
-export default Home;
+export default Setting;
 
 const styles = StyleSheet.create({});
