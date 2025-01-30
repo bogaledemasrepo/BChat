@@ -1,3 +1,4 @@
+import CustomTitle from "@/components/CustomTitle";
 import { Stack } from "expo-router";
 const _layout = () => {
   return (
@@ -11,7 +12,7 @@ const _layout = () => {
       <Stack.Screen
         name="auth"
         options={{
-          headerShown: false,
+          headerTitle: () => <CustomTitle text="Authentication page!" />,
         }}
       />
       <Stack.Screen
@@ -21,7 +22,7 @@ const _layout = () => {
         }}
       />
       <Stack.Screen
-        name="/chatDetail"
+        name="chatDetail"
         options={{
           headerShown: false,
         }}

@@ -1,13 +1,16 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-
-const CustomButton = ({ pressHandler }: { pressHandler: () => {} }) => {
+interface CustomBtnProbs {
+  label: string;
+  pressHandler: () => void;
+}
+const CustomButton = ({ label, pressHandler }: CustomBtnProbs) => {
   return (
-    <Pressable
+    <TouchableOpacity
       onPress={() => pressHandler()}
       style={{
-        width: "90%",
-        height: 48,
+        width: "100%",
+        height: 40,
         padding: 8,
         backgroundColor: "#232353",
         borderRadius: 99,
@@ -25,9 +28,9 @@ const CustomButton = ({ pressHandler }: { pressHandler: () => {} }) => {
           color: "#fff",
         }}
       >
-        Get started
+        {label}
       </Text>
-    </Pressable>
+    </TouchableOpacity>
   );
 };
 
