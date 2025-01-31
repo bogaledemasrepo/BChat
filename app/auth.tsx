@@ -1,18 +1,44 @@
 import { StyleSheet, View } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AuthNavigater from "@/components/AuthNavigater";
 import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
 import CustomTitle from "@/components/CustomTitle";
+import { ApiContext } from "@/hooks/ApiContext";
+import SecuredInput from "@/components/SecuredInput";
 
 const index = () => {
+  const { sock } = useContext(ApiContext);
   const [haveAnAccount, setHaveAnAccount] = useState(false);
+  // State for Sign In
+  const [signInEmail, setSignInEmail] = useState("");
+  const [signInPassword, setSignInPassword] = useState("");
+
   const signInHandler = () => {
-    console.log("Sign In");
+    sock.emit(
+      "/signIn",
+      JSON.stringify({
+        email: signInEmail,
+        password: signInPassword,
+      })
+    );
   };
+  // State for Sign Up
+  const [signUpEmail, setSignUpEmail] = useState("");
+  const [signUpFullname, setSignUpFullname] = useState("");
+  const [signUpPassword, setSignUpPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const signUpHandler = () => {
-    console.log("Sign Up");
+    sock.emit(
+      "/signUp",
+      JSON.stringify({
+        fullname: signUpFullname,
+        email: signUpEmail,
+        password: signUpPassword,
+      })
+    );
   };
+  useEffect(() => {}, []);
   return (
     <View
       style={{
@@ -31,15 +57,21 @@ const index = () => {
           >
             <CustomTitle text="Fill the form & sign up!" />
             <CustomInput
-              label="First Name"
-              inputChangeHandler={async () => {}}
+              label="Enter full name"
+              inputChangeHandler={(i) => setSignUpFullname(i)}
             />
             <CustomInput
-              label="Last Name"
-              inputChangeHandler={async () => {}}
+              label="Enter email"
+              inputChangeHandler={(i) => setSignUpEmail(i)}
             />
-            <CustomInput label="User Name" inputChangeHandler={() => {}} />
-            <CustomInput label="password" inputChangeHandler={() => {}} />
+            <SecuredInput
+              label="Password"
+              inputChangeHandler={(i) => setSignUpPassword(i)}
+            />
+            <SecuredInput
+              label="Confirm password"
+              inputChangeHandler={(i) => setPasswordConfirm(i)}
+            />
             <CustomButton label="Sign Up" pressHandler={signUpHandler} />
           </View>
           <AuthNavigater
@@ -58,15 +90,18 @@ const index = () => {
           >
             <CustomTitle text="Fill the form & sign in!" />
             <CustomInput
-              label="User name"
-              inputChangeHandler={async () => {}}
+              label="Enter email"
+              inputChangeHandler={setSignInEmail}
             />
-            <CustomInput label="Password" inputChangeHandler={async () => {}} />
+            <SecuredInput
+              label="Password"
+              inputChangeHandler={setSignInPassword}
+            />
             <CustomButton label="Sign In" pressHandler={signInHandler} />
           </View>
           <AuthNavigater
             text="I have't any account "
-            btnTitle="Go to Sign In"
+            btnTitle="Go to Sign Up"
             pressHandler={async () => setHaveAnAccount(!haveAnAccount)}
           />
         </View>

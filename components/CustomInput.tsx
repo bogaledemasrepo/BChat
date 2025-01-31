@@ -3,7 +3,7 @@ import React from "react";
 import { TextInput } from "react-native-gesture-handler";
 interface CustomInputProbs {
   label: string;
-  inputChangeHandler: () => void;
+  inputChangeHandler: (input: string) => void;
 }
 const CustomInput = ({ label, inputChangeHandler }: CustomInputProbs) => {
   return (
@@ -26,7 +26,7 @@ const CustomInput = ({ label, inputChangeHandler }: CustomInputProbs) => {
           paddingHorizontal: 16,
         }}
         placeholder={label}
-        onChange={inputChangeHandler}
+        onChangeText={inputChangeHandler}
       />
     </View>
   );

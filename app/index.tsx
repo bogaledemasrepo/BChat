@@ -1,24 +1,21 @@
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { router } from "expo-router";
 import CustomButton from "@/components/CustomButton";
+import { ApiContext } from "@/hooks/ApiContext";
 
 const index = () => {
-  const [user, setUser] = useState("");
-  let { getItem, setItem } = useAsyncStorage("@bogitocken");
-  async function setUserToken(val: string) {
-    await setItem(val);
-  }
-  async function getUserToken() {
-    const tocken = await getItem();
-    setUser(tocken || "");
-  }
-  useEffect(() => {
-    setUserToken("");
-    getUserToken();
-  }, []);
-  if (user !== "") return router.replace("/(tabs)/chat/Allusers");
+  const { sock, user } = useContext(ApiContext);
+  const [smsg, sayWellcome] = useState("");
+  sock.on("wellcome", (msg: string) => {
+    sayWellcome(msg);
+  });
+  sock.on("disconnect", () => {
+    sayWellcome("");
+    console.log("Disconnected!");
+  });
+
   return (
     <View
       style={{
@@ -49,11 +46,11 @@ const index = () => {
             color: "#59606c",
           }}
         >
-          Wellcome to BChat App
+          {smsg === "" ? "Loading..." : smsg}
         </Text>
       </View>
       <CustomButton
-        label="Get started"
+        label={smsg === "" ? "Chat app loading..." : "Get started"}
         pressHandler={async () => router.push("/auth")}
       />
     </View>
@@ -61,40 +58,3 @@ const index = () => {
 };
 
 export default index;
-
-// const styles = StyleSheet.create({});
-// import React, { useState, useEffect } from "react";
-// import { View, Text, TouchableOpacity } from "react-native";
-// import { useAsyncStorage } from "@react-native-async-storage/async-storage";
-
-// export default function App() {
-//   const [value, setValue] = useState("value");
-//
-
-//   const readItemFromStorage = async () => {
-//     const item = await getItem();
-//     setValue(item);
-//   };
-
-//   const writeItemToStorage = async (newValue) => {
-//     await setItem(newValue);
-//     setValue(newValue);
-//   };
-
-//   useEffect(() => {
-//     readItemFromStorage();
-//   }, []);
-
-//   return (
-//     <View style={{ margin: 40 }}>
-//       <Text>Current value: {value}</Text>
-//       <TouchableOpacity
-//         onPress={() =>
-//           writeItemToStorage(Math.random().toString(36).substr(2, 5))
-//         }
-//       >
-//         <Text>Update value</Text>
-//       </TouchableOpacity>
-//     </View>
-//   );
-// }
