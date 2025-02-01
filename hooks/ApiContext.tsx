@@ -1,4 +1,3 @@
-import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { io } from "socket.io-client";
 const sock = io(`http://localhost:3000`);

@@ -32,7 +32,7 @@ const index = () => {
           height: "40%",
           borderWidth: 1,
           borderColor: "#aaa",
-          backgroundColor: "#aaaaaaaa",
+          backgroundColor: "#aaaa",
           borderRadius: 8,
           marginVertical: 8,
           alignItems: "center",

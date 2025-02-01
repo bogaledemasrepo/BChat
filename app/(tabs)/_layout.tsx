@@ -1,3 +1,4 @@
+import CustomTitle from "@/components/CustomTitle";
 import { Feather, MaterialIcons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
@@ -5,6 +6,8 @@ const _layout = () => {
   return (
     <Tabs
       screenOptions={{
+        headerTintColor: "#777",
+        headerTitleAlign: "center",
         tabBarStyle: {
           height: 60,
           backgroundColor: "#232353",
@@ -30,7 +33,7 @@ const _layout = () => {
       <Tabs.Screen
         name="explore"
         options={{
-          tabBarLabel: "Explore",
+          headerTitle: () => <CustomTitle text="Explore friends" />,
           tabBarIcon: ({ color, focused }) => (
             <MaterialIcons name="explore" size={24} color={color} />
           ),

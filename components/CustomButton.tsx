@@ -18,13 +18,12 @@ const CustomButton = ({ label, pressHandler }: CustomBtnProbs) => {
         borderWidth: 1,
         alignItems: "center",
         justifyContent: "center",
+        paddingHorizontal: 16,
       }}
     >
       <Text
         style={{
-          fontFamily: "monospace",
-          fontSize: 16,
-          fontWeight: "bold",
+          fontWeight: "semibold",
           color: "#fff",
         }}
       >

@@ -6,6 +6,7 @@ import CustomButton from "@/components/CustomButton";
 import CustomTitle from "@/components/CustomTitle";
 import { ApiContext } from "@/hooks/ApiContext";
 import SecuredInput from "@/components/SecuredInput";
+import { router } from "expo-router";
 
 const index = () => {
   const { sock } = useContext(ApiContext);
@@ -15,13 +16,14 @@ const index = () => {
   const [signInPassword, setSignInPassword] = useState("");
 
   const signInHandler = () => {
-    sock.emit(
-      "/signIn",
-      JSON.stringify({
-        email: signInEmail,
-        password: signInPassword,
-      })
-    );
+    router.navigate("/(tabs)/chat/Allusers");
+    // sock.emit(
+    //   "/signIn",
+    //   JSON.stringify({
+    //     email: signInEmail,
+    //     password: signInPassword,
+    //   })
+    // );
   };
   // State for Sign Up
   const [signUpEmail, setSignUpEmail] = useState("");
