@@ -1,46 +1,42 @@
 import { StyleSheet, View } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import AuthNavigater from "@/components/AuthNavigater";
 import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
 import CustomTitle from "@/components/CustomTitle";
-import { ApiContext } from "@/hooks/ApiContext";
 import SecuredInput from "@/components/SecuredInput";
-import { router } from "expo-router";
 
 const index = () => {
-  const { sock } = useContext(ApiContext);
   const [haveAnAccount, setHaveAnAccount] = useState(false);
   // State for Sign In
   const [signInEmail, setSignInEmail] = useState("");
   const [signInPassword, setSignInPassword] = useState("");
-
-  const signInHandler = () => {
-    router.navigate("/(tabs)/chat/Allusers");
-    // sock.emit(
-    //   "/signIn",
-    //   JSON.stringify({
-    //     email: signInEmail,
-    //     password: signInPassword,
-    //   })
-    // );
+  (async () => {
+    try {
+      const res = await fetch("http://localhost:3000s/");
+      console.log("Hallo", res);
+    } catch (error) {
+      console.log(error);
+    }
+  })();
+  const signInHandler = async () => {
+    console.log({ email: signInEmail, password: signInPassword });
+    try {
+      const responce = await fetch("http://localhost:4000/signIn", {
+        method: "POST",
+        // body: JSON.stringify({ email: signInEmail, password: signInPassword }),
+      });
+      console.log(responce);
+    } catch (error) {
+      console.log(error);
+    }
   };
   // State for Sign Up
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpFullname, setSignUpFullname] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-  const signUpHandler = () => {
-    sock.emit(
-      "/signUp",
-      JSON.stringify({
-        fullname: signUpFullname,
-        email: signUpEmail,
-        password: signUpPassword,
-      })
-    );
-  };
-  useEffect(() => {}, []);
+  const signUpHandler = () => {};
   return (
     <View
       style={{

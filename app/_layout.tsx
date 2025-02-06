@@ -26,7 +26,6 @@ const _layout = () => {
         <Stack.Screen
           name="chatDetail"
           options={{
-            title: "Hall",
             headerShown: false,
           }}
         />
