@@ -1,16 +1,13 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { Link, RelativePathString } from "expo-router";
 interface AuthNavigaterProbs {
   text: string;
+  href: RelativePathString;
   btnTitle: string;
-  pressHandler: () => {};
 }
-const AuthNavigater = ({
-  text,
-  btnTitle,
-  pressHandler,
-}: AuthNavigaterProbs) => {
+const AuthNavigater = ({ text, href, btnTitle }: AuthNavigaterProbs) => {
   return (
     <View style={{ flexDirection: "row" }}>
       <Text
@@ -20,7 +17,7 @@ const AuthNavigater = ({
       >
         {text}
       </Text>
-      <TouchableWithoutFeedback onPress={pressHandler}>
+      <Link href={href}>
         <Text
           style={{
             color: "#6060ff",
@@ -30,7 +27,7 @@ const AuthNavigater = ({
         >
           {btnTitle}
         </Text>
-      </TouchableWithoutFeedback>
+      </Link>
     </View>
   );
 };

@@ -5,16 +5,15 @@ import { Redirect, router } from "expo-router";
 import CustomButton from "@/components/CustomButton";
 
 const index = () => {
-  const [hasToken, setHasToken] = useState(false);
-  const checkHasToken = async () => {
-    const token = await AsyncStorage.getItem("bchat-token");
-    if (token) setHasToken(true);
+  const [haveUserToken, setUserToken] = useState("");
+  const loadUserFromStorage = async () => {
+    const token = await AsyncStorage.getItem("bchat-tocken");
+    setUserToken(token || "");
   };
-
   useEffect(() => {
-    checkHasToken();
+    loadUserFromStorage();
   }, []);
-  if (hasToken) return Redirect({ href: "/(tabs)/chat/Allusers" });
+  if (haveUserToken) return Redirect({ href: "/(tabs)/chat/Allusers" });
   return (
     <ImageBackground
       resizeMode="cover"
@@ -55,7 +54,7 @@ const index = () => {
         </View>
         <CustomButton
           label={"Get started"}
-          pressHandler={async () => router.push("/auth")}
+          pressHandler={async () => router.push("/signUp")}
         />
       </View>
     </ImageBackground>
